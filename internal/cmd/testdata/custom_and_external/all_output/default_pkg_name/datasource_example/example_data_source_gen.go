@@ -2093,11 +2093,19 @@ func (v ListNestedAttributeThreeListNestedAttributeOneValue) String() string {
 func (v ListNestedAttributeThreeListNestedAttributeOneValue) ToObjectValue(ctx context.Context) (basetypes.ObjectValue, diag.Diagnostics) {
 	var diags diag.Diagnostics
 
-	listAttributeVal, d := types.ListValue(types.StringType, v.ListAttribute.Elements())
+	var listAttributeVal basetypes.ListValue
+	switch {
+	case v.ListAttribute.IsUnknown():
+		listAttributeVal = types.ListUnknown(types.StringType)
+	case v.ListAttribute.IsNull():
+		listAttributeVal = types.ListNull(types.StringType)
+	default:
+		var d diag.Diagnostics
+		listAttributeVal, d = types.ListValue(types.StringType, v.ListAttribute.Elements())
+		diags.Append(d...)
+	}
 
-	diags.Append(d...)
-
-	if d.HasError() {
+	if diags.HasError() {
 		return types.ObjectUnknown(map[string]attr.Type{
 			"list_attribute": basetypes.ListType{
 				ElemType: types.StringType,
@@ -5425,11 +5433,19 @@ func (v SingleNestedAttributeThreeSingleNestedAttributeOneValue) String() string
 func (v SingleNestedAttributeThreeSingleNestedAttributeOneValue) ToObjectValue(ctx context.Context) (basetypes.ObjectValue, diag.Diagnostics) {
 	var diags diag.Diagnostics
 
-	listAttributeVal, d := types.ListValue(types.StringType, v.ListAttribute.Elements())
+	var listAttributeVal basetypes.ListValue
+	switch {
+	case v.ListAttribute.IsUnknown():
+		listAttributeVal = types.ListUnknown(types.StringType)
+	case v.ListAttribute.IsNull():
+		listAttributeVal = types.ListNull(types.StringType)
+	default:
+		var d diag.Diagnostics
+		listAttributeVal, d = types.ListValue(types.StringType, v.ListAttribute.Elements())
+		diags.Append(d...)
+	}
 
-	diags.Append(d...)
-
-	if d.HasError() {
+	if diags.HasError() {
 		return types.ObjectUnknown(map[string]attr.Type{
 			"list_attribute": basetypes.ListType{
 				ElemType: types.StringType,
@@ -7749,11 +7765,19 @@ func (v ListNestedBlockThreeListNestedBlockOneValue) String() string {
 func (v ListNestedBlockThreeListNestedBlockOneValue) ToObjectValue(ctx context.Context) (basetypes.ObjectValue, diag.Diagnostics) {
 	var diags diag.Diagnostics
 
-	listAttributeVal, d := types.ListValue(types.StringType, v.ListAttribute.Elements())
+	var listAttributeVal basetypes.ListValue
+	switch {
+	case v.ListAttribute.IsUnknown():
+		listAttributeVal = types.ListUnknown(types.StringType)
+	case v.ListAttribute.IsNull():
+		listAttributeVal = types.ListNull(types.StringType)
+	default:
+		var d diag.Diagnostics
+		listAttributeVal, d = types.ListValue(types.StringType, v.ListAttribute.Elements())
+		diags.Append(d...)
+	}
 
-	diags.Append(d...)
-
-	if d.HasError() {
+	if diags.HasError() {
 		return types.ObjectUnknown(map[string]attr.Type{
 			"list_attribute": basetypes.ListType{
 				ElemType: types.StringType,
@@ -10625,11 +10649,19 @@ func (v SingleNestedBlockThreeListNestedBlockOneValue) String() string {
 func (v SingleNestedBlockThreeListNestedBlockOneValue) ToObjectValue(ctx context.Context) (basetypes.ObjectValue, diag.Diagnostics) {
 	var diags diag.Diagnostics
 
-	listAttributeVal, d := types.ListValue(types.StringType, v.ListAttribute.Elements())
+	var listAttributeVal basetypes.ListValue
+	switch {
+	case v.ListAttribute.IsUnknown():
+		listAttributeVal = types.ListUnknown(types.StringType)
+	case v.ListAttribute.IsNull():
+		listAttributeVal = types.ListNull(types.StringType)
+	default:
+		var d diag.Diagnostics
+		listAttributeVal, d = types.ListValue(types.StringType, v.ListAttribute.Elements())
+		diags.Append(d...)
+	}
 
-	diags.Append(d...)
-
-	if d.HasError() {
+	if diags.HasError() {
 		return types.ObjectUnknown(map[string]attr.Type{
 			"list_attribute": basetypes.ListType{
 				ElemType: types.StringType,

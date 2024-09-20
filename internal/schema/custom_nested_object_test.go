@@ -1343,11 +1343,19 @@ return objVal, diags
 func (v ExampleValue) ToObjectValue(ctx context.Context) (basetypes.ObjectValue, diag.Diagnostics) {
 var diags diag.Diagnostics
 
-listAttributeVal, d := types.ListValue(types.BoolType, v.ListAttribute.Elements())
-
+var listAttributeVal basetypes.ListValue
+switch {
+case v.ListAttribute.IsUnknown():
+listAttributeVal = types.ListUnknown(types.BoolType)
+case v.ListAttribute.IsNull():
+listAttributeVal = types.ListNull(types.BoolType)
+default:
+var d diag.Diagnostics
+listAttributeVal, d = types.ListValue(types.BoolType, v.ListAttribute.Elements())
 diags.Append(d...)
+}
 
-if d.HasError() {
+if diags.HasError() {
 return types.ObjectUnknown(map[string]attr.Type{
 "list_attribute": basetypes.ListType{
 ElemType: types.BoolType,
@@ -1396,11 +1404,19 @@ return objVal, diags
 func (v ExampleValue) ToObjectValue(ctx context.Context) (basetypes.ObjectValue, diag.Diagnostics) {
 var diags diag.Diagnostics
 
-typeVal, d := types.ListValue(types.BoolType, v.ExampleType.Elements())
-
+var typeVal basetypes.ListValue
+switch {
+case v.ExampleType.IsUnknown():
+typeVal = types.ListUnknown(types.BoolType)
+case v.ExampleType.IsNull():
+typeVal = types.ListNull(types.BoolType)
+default:
+var d diag.Diagnostics
+typeVal, d = types.ListValue(types.BoolType, v.ExampleType.Elements())
 diags.Append(d...)
+}
 
-if d.HasError() {
+if diags.HasError() {
 return types.ObjectUnknown(map[string]attr.Type{
 "type": basetypes.ListType{
 ElemType: types.BoolType,
